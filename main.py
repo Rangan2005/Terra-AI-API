@@ -24,11 +24,17 @@ class Output(BaseModel):
     Type: str = Field(
         description="The type of electronic waste as High Hazard, Medium Hazard or Low Hazard"
     )
-    Instructions: str = Field(
-        description="Instructions to dispose the electronic waste"
+    Intro: str = Field(
+        description="Introduction about the type of e-waste"
     )
     Tags: str = Field(
         description="Tags to identify the electronic waste"
+    )
+    Information: str = Field(
+        description="Trivia about the e-waste"
+    )
+    Instructions: str = Field(
+        description="Instructions to dispose the electronic waste"
     )
 
 def identify_ewaste(image_path: str, location: str = "default location"):
@@ -43,7 +49,7 @@ def identify_ewaste(image_path: str, location: str = "default location"):
     response = client.models.generate_content(
         model='gemini-2.0-flash',
         contents=[
-            f"What type of electronic waste (High Hazard, Medium Hazard or Low Hazard) is in this image and give intructions in bullet points to dispose it based on my {location}? Also give 3-4 creative tags like for e.g. High Hazardus, Lithium ion etc.",
+            f"What type of electronic waste (High Hazard, Medium Hazard or Low Hazard) is in this image and give introduction about the type of e-waste. Also give 3-4 creative tags like for e.g. High Hazardus, Lithium ion etc. and at last give 3 trivia points about the e-waste with short headings and give instructions to dispose the type of e-waste based on the {location}",
             img
         ],
         config={
